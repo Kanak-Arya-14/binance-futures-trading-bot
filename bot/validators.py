@@ -1,5 +1,6 @@
 def validate_input(symbol, side, order_type, quantity, price=None):
 
+    symbol = symbol.upper()
     side = side.upper()
     order_type = order_type.upper()
 
@@ -12,5 +13,9 @@ def validate_input(symbol, side, order_type, quantity, price=None):
     if quantity <= 0:
         raise ValueError("Quantity must be greater than 0")
 
-    if order_type == "LIMIT" and price is None:
-        raise ValueError("Price is required for LIMIT order")
+    if order_type == "LIMIT":
+        if price is None:
+            raise ValueError("Price is required for LIMIT order")
+
+        if price <= 0:
+            raise ValueError("Price must be greater than 0")
